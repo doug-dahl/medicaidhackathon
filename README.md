@@ -1,6 +1,6 @@
 # Hearts & Minds NYC
 
-A prototype for the NYS Office of Customer Experience. It brings together open data and public social media posts so agencies can see the biggest problems people hit with Medicaid and Medicare, how many New Yorkers each one affects, and what it feels like in their own words.
+A prototype for the NYS Office of Customer Experience. It brings together open data and public social media posts so agencies can see the biggest problems people hit with Medicaid, how many New Yorkers each one affects, and what it feels like in their own words.
 
 This first version is the **Radar**: a heatmap of problems laid out in the order people move through Medicaid (Apply → Verify → Enroll → Use care → Renew). Box size is people affected and shade is harm. Selecting a box shows its 90-day trend and a scrollable feed of video clips.
 
