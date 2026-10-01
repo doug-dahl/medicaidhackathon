@@ -510,10 +510,9 @@ const PROBLEMS = [
       ["BronxNet", "news", "A Bronx call to action on protecting SNAP and Medicaid. About 30,000 Bronx residents are at risk of losing coverage.", "BronxNet · June 2026", "News", { yt: "CL-HHwAj9jo", kind: "news", fit: "direct", desc: true }],
       ["YouTube", "1:55", "1199SEIU members rally at Montefiore against proposed Medicaid cuts.", "Ruby Graham and 1199SEIU members · Bronx · 2019", "Real story", { yt: "RyVWvO6FyCU", kind: "story", fit: "context", desc: true }],
       ["YouTube", "1:53", "Without the help of Medicaid, I'd be in the train system, sleeping.", "Joel · Sun River Health patient", "Real story", { yt: "e5hGbhQvz4c", kind: "story", fit: "context", lead: true }],
-      ["YouTube", "3:18", "Kidney transplant patient: Medicaid covers his anti-rejection meds and home aide. Speaks English, then Spanish.", "Robert Cabrera · Bronx · Rep. Espaillat's Medicaid Day of Action", "Real story", { yt: "5Skd_CO-Byk", start: 856, end: 1054, kind: "story", fit: "context", desc: true }],
-      ["YouTube", "2:52", "A mom on what Medicaid means for her autistic son.", "Phyllis Lombardi · Rep. Ritchie Torres · borough not stated", "Real story", { yt: "VNe2scG_QNs", kind: "story", fit: "context", desc: true }],
+      ["YouTube", "3:18", "Kidney transplant patient: Medicaid covers his anti-rejection meds and home aide. Speaks English, then Spanish.", "Robert Cabrera · Bronx · Medicaid Day of Action", "Real story", { yt: "5Skd_CO-Byk", start: 856, end: 1054, kind: "story", fit: "context", desc: true }],
+      ["YouTube", "2:52", "A mom on what Medicaid means for her autistic son.", "Phyllis Lombardi · NYC · borough not stated", "Real story", { yt: "VNe2scG_QNs", kind: "story", fit: "context", desc: true }],
       ["YouTube", "3:26", "Sun River Health patients share how Medicaid has affected their lives.", "Sun River Health · compilation", "Real story", { yt: "4WVhjBiXNDk", kind: "story", fit: "context", desc: true }],
-      ["YouTube", "1:34", "Medicaid is not just a line item in the budget.", "Rep. Ritchie Torres · Bronx", "News", { yt: "Zldc5J7q5pQ", kind: "news", fit: "context" }],
       ["Shorts", "0:58", "I'm a caregiver. Does that count as work?", "Enrollee · Brooklyn", "1h ago"],
       ["TikTok", "0:42", "In July I work 60 hours a week. In January there's nothing.", "Concessions · Far Rockaway", "4h ago"],
       ["Facebook", "0:31", "School's out July and August. So am I.", "Cafeteria worker · Soundview", "8h ago"],
@@ -531,15 +530,14 @@ const PROBLEMS = [
   { id: "msp", stage: "enroll", agency: "NYC HRA", note: "HRA processes MSP applications in NYC. HIICAP (NYC Aging) offers free counseling.", reach: 33000, harm: 58, shape: "climb",
     title: "Seniors miss Medicare Savings help",
     clips: [
-      ["YouTube", "0:59", "Bronx seniors on why Medicare telehealth is a lifeline.", "Audrey & Dr. Herbert Mittman · Bronx · Rep. Ritchie Torres", "Real story", { yt: "AHicvj5_74E", kind: "story", fit: "context", desc: true }],
-      ["Facebook", "1:10", "I paid my Part B for years. I qualified the whole time.", "Retiree, 71 · Bronx", "6h ago"],
+      ["Facebook", "1:10", "I paid my premiums for years. I qualified the whole time.", "Retiree, 71 · Bronx", "6h ago"],
       ["YouTube", "2:04", "My mother didn't know this program existed.", "Daughter · Washington Heights", "2d ago"],
       ["Reddit", "post", "The form is 14 pages. She's 83.", "Caregiver · Queens", "4d ago"],
     ] },
   { id: "cdpap", stage: "care", agency: "NYS DOH", note: "Since April 1, 2025, Public Partnerships LLC (PPL) is the only CDPAP fiscal intermediary.", reach: 71000, harm: 87, shape: "spike", tag: "▲ SPIKING", hot: true,
     title: "Home-care aides unpaid after CDPAP switch",
     clips: [
-      ["YouTube", "0:42", "Paralyzed as a teenager, Medicaid-funded home care let him finish college and raise a family.", "Jose Hernandez · Bronx · Rep. Ritchie Torres", "Real story", { yt: "6DaH3Pg0pNg", kind: "story", fit: "context", desc: true }],
+      ["YouTube", "0:42", "Paralyzed as a teenager, Medicaid-funded home care let him finish college and raise a family.", "Jose Hernandez · Bronx", "Real story", { yt: "6DaH3Pg0pNg", kind: "story", fit: "context", desc: true }],
       ["TikTok", "0:42", "If I stop, my mother can't get out of bed.", "Aide · Bronx", "2h ago"],
       ["Facebook", "0:31", "My hours say zero. I worked 60.", "Aide · Brooklyn", "5h ago"],
       ["Reddit", "post", "My aide cried in my kitchen today.", "Consumer, 78 · Bronx", "9h ago"],
@@ -608,7 +606,7 @@ const PILLARS = [
 
 // Documented statewide results the case studies build on.
 const STATS = [
-  { num: "~70%", lbl: "Medicaid renewals completed automatically, against a target of 50%, after DOH and the U.S. Digital Service automated eligibility checks.", src: SRC.annual },
+  { num: "~70%", lbl: "Medicaid renewals completed automatically, against a target of 50%, after DOH automated eligibility checks.", src: SRC.annual },
   { num: "20%", lbl: "Enrollment gaps closed year over year after DOH changed the Medicaid renewal process.", src: SRC.annual },
   { num: "30 min", lbl: "Cut from the time it takes to apply for Medicaid after the application was made to work on a phone, for 3.4 million users.", src: SRC.annual },
   { num: "650k", lbl: "Texts and WhatsApp messages in 7 languages from NY State of Health. 41% of the people who got one secured coverage.", src: SRC.accomp },
@@ -634,7 +632,7 @@ const yt = (plat, desc, meta, id, kind = "story", extra = {}) => [plat, kind, de
 const CASES = [
   { id: "envelope", n: 1, problem: "renewal", agency: "NYS DOH + NYC HRA", measure: "Closing gaps", status: "shipped", shipDay: 48, floor: .42,
     title: "The renewal envelope now says renew",
-    what: "In focus groups run with the U.S. Digital Service, New Yorkers said the Medicaid renewal envelope looked like junk mail. They did not open it. The deadline passed. DOH redesigned the envelope. It now says it is time to renew, in large red type, and the notice inside is in plain language. HRA is piloting the same envelope in five NYC districts.",
+    what: "In focus groups, New Yorkers said the Medicaid renewal envelope looked like junk mail. They did not open it. The deadline passed. DOH redesigned the envelope. It now says it is time to renew, in large red type, and the notice inside is in plain language. HRA is piloting the same envelope in five NYC districts.",
     facts: ["Administrative renewal rate reached about 70% against a 50% target", "Enrollment gaps closed 20% over the prior year", "Renewals rose as soon as the new envelope went out"],
     source: SRC.annual, standards: ["cta", "plain", "hcd", "measure"],
     harmBefore: 81, harmAfter: 59,
@@ -675,9 +673,8 @@ const CASES = [
     source: SRC.nyha, standards: ["plain", "cta", "callcenter", "a11y"],
     hoods: [["Mott Haven · Bronx", 86, 91], ["Flatbush · Brooklyn", 80, 84], ["Jamaica · Queens", 77, 83], ["Stapleton · Staten Island", 72, 78], ["Washington Heights · Manhattan", 70, 76]],
     videos: [
-      yt("YouTube", "Paralyzed at 15, Medicaid-funded home care let Jose finish college and raise a family.", "Jose Hernandez · Bronx · shared by Rep. Ritchie Torres", "6DaH3Pg0pNg"),
+      yt("YouTube", "Paralyzed as a teenager, Medicaid-funded home care let Jose finish college and raise a family.", "Jose Hernandez · Bronx", "6DaH3Pg0pNg"),
       yt("YouTube", "Ruby Graham and other 1199SEIU patients at the Stop the Medicaid Cuts rally.", "Ruby Graham · Bronx", "RyVWvO6FyCU"),
-      yt("YouTube", "Over half of Bronx residents rely on Medicaid.", "Rep. Ritchie Torres · Bronx", "Zldc5J7q5pQ", "news"),
     ] },
 ];
 
