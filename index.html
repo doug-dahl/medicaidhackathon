@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Hearts &amp; Minds NYC · Radar</title>
+<title>Hearts &amp; Minds NYC · Medicaid pain points</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -88,6 +88,7 @@
   .live i { width: 8px; height: 8px; border-radius: 50%; background: #1e752e; animation: pulse 2s infinite; }
   body.lofi .live i { background: #1b1b1b; }
   @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
+  .sample { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 4px 8px; background: var(--nys-color-base-weak); color: var(--nys-color-text-weak); cursor: help; }
   .top-r { display: flex; gap: 8px; }
   .btn { font-size: 13px; font-weight: 700; padding: 9px 14px; border: 1px solid var(--nys-color-ink); }
   .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
@@ -108,6 +109,10 @@
   .chip { font-size: 13px; font-weight: 600; padding: 7px 14px; border: 1px solid #bec0c1; }
   .chip:hover { border-color: var(--nys-color-ink); }
   .chip[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 700; }
+  [data-tip] { position: relative; }
+  [data-tip]::after { content: attr(data-tip); font-family: var(--font-ui); position: absolute; left: 0; top: calc(100% + 8px); z-index: 20; width: 300px; padding: 10px 12px; background: var(--nys-color-ink); color: #fff; font-size: 12px; font-weight: 500; line-height: 18px; letter-spacing: 0; text-transform: none; text-align: left; white-space: normal; box-shadow: 0 6px 18px rgba(0,0,0,.18); opacity: 0; transform: translateY(-4px); pointer-events: none; transition: opacity .12s, transform .12s; }
+  [data-tip]:hover::after, [data-tip]:focus-visible::after { opacity: 1; transform: none; transition-delay: .15s; }
+  .tip-label { border-bottom: 1px dotted currentColor; cursor: help; }
   .filters .inview { margin-left: auto; font-size: 13px; color: var(--nys-color-text-weak); }
   .filters .inview b { color: var(--nys-color-ink); }
 
@@ -154,6 +159,7 @@
   .selected .who { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
   .selected .eyebrow { font-family: var(--font-alt); font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nys-color-text-weak); }
   .selected h3 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.01em; }
+  .selected .note { font-size: 12px; line-height: 18px; color: var(--nys-color-text-weak); }
   .selected .big { font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
   .selected .big small { display: block; font-size: 12px; font-weight: 500; letter-spacing: 0; color: var(--nys-color-text-weak); margin-top: 6px; }
   .chart { position: relative; width: 360px; flex-shrink: 0; }
@@ -254,6 +260,7 @@
       <div class="top-l">
         <h1>Radar</h1>
         <div class="live"><i></i><b>LIVE</b><span id="updated">· updated just now</span></div>
+        <span class="sample" title="Counts, Harm Scores, trends and unlabeled clips are illustrative. Videos marked Real story or News are real public videos.">Sample data</span>
       </div>
       <div class="top-r">
         <span class="scope">Medicaid + Medicare · All NYC · Last 90 days</span>
@@ -265,7 +272,7 @@
     <section class="content">
       <div class="head">
         <div>
-          <h2>Where it hurts most</h2>
+          <h2>Medicaid pain points</h2>
           <p>Problems are laid out in the order people move through Medicaid. Bigger boxes affect more New Yorkers, and darker boxes do more harm.</p>
         </div>
         <div class="legend">Less harm <span class="ramp"><i style="background:var(--heat-0)"></i><i style="background:var(--heat-2)"></i><i style="background:var(--heat-4)"></i><i style="background:var(--heat-6)"></i><i style="background:var(--heat-7)"></i></span> More harm</div>
@@ -334,56 +341,61 @@ const STAGES = [
   { id: "care",   n: 4, name: "Use care" },
   { id: "renew",  n: 5, name: "Renew", note: "↻ back to 2" },
 ];
-const AGENCIES = ["NYS DOH", "NYC HRA", "NY State of Health", "NYSOFA HIICAP"];
+const AGENCIES = ["NYS DOH", "NYC HRA", "NY State of Health"];
+const AGENCY_INFO = {
+  "NYS DOH": "New York State Department of Health. Runs Medicaid statewide through its Office of Health Insurance Programs (OHIP), including CDPAP home care, NYRx pharmacy, and Medicaid transportation.",
+  "NYC HRA": "NYC Human Resources Administration, the city's local Medicaid office. Handles applications and renewals for 65+, disability and long-term care cases, plus Medicare Savings Program applications. Helpline 888-692-6116.",
+  "NY State of Health": "New York's official health plan marketplace, run by NYS DOH. Enrolls and renews the Essential Plan and most Medicaid for families, kids and adults under 65, and sends the 2027 work-rule notices. 1-855-355-5777.",
+};
 
 // Sample data for the demo. Reach = New Yorkers affected; harm = Harm Score 0–100.
 const PROBLEMS = [
-  { id: "helpline", stage: "apply", agency: "NYC HRA", reach: 54000, harm: 68, shape: "wave",
+  { id: "helpline", stage: "apply", agency: "NYC HRA", note: "HRA Medicaid Helpline, 888-692-6116.", reach: 54000, harm: 68, shape: "wave",
     title: "Helpline holds over 60 minutes",
     clips: [
-      ["YouTube", "9:00", "Homeless in the Bronx and getting treated for a hand infection. A street interview.", "William Rada · Bronx", "Real story", { yt: "PqxplFX8hVo", kind: "story", desc: true }],
-      ["YouTube", "story", "Three formerly homeless MetroPlus members moved into housing.", "MetroPlus members · NYC", "Real story", { yt: "RZ5Fi5jn5Oo", kind: "story", desc: true }],
+      ["YouTube", "8:55", "Homeless in the Bronx and getting treated for a hand infection. A street interview.", "William · Bronx · Nourish Street", "Real story", { yt: "PqxplFX8hVo", kind: "story", fit: "context", desc: true }],
+      ["YouTube", "3:05", "MetroPlus members who had been homeless share how they moved into housing.", "MetroPlusHealth members · NYC · 2019", "Real story", { yt: "RZ5Fi5jn5Oo", kind: "story", fit: "context", desc: true }],
       ["TikTok", "0:22", "I held for 94 minutes and it hung up on me.", "Applicant · Jamaica", "3h ago"],
       ["Facebook", "0:40", "I took a day off work just to call.", "Parent · Bronx", "1d ago"],
       ["Reddit", "post", "Is there anyone who has actually reached a person?", "Applicant · Brooklyn", "2d ago"],
       ["YouTube", "1:03", "Press 1 for English. Then nothing.", "Applicant · Queens", "3d ago"],
     ] },
-  { id: "work", stage: "verify", agency: "NYS DOH", reach: 96000, harm: 74, shape: "surge", tag: "▲ EMERGING",
+  { id: "work", stage: "verify", agency: "NYS DOH", note: "Starts Jan 1, 2027. NY State of Health mailed notices on Sept 1, 2026.", reach: 96000, harm: 74, shape: "surge", tag: "▲ EMERGING",
     title: "Fear about 2027 work-reporting rules",
     clips: [
-      ["BronxNet", "news", "30,000 Bronxites are at risk of losing coverage in January 2027.", "BronxNet · Bronx news", "News", { yt: "CL-HHwAj9jo", kind: "news", desc: true }],
-      ["YouTube", "1:00", "Without the help of Medicaid, I'd be in the train system, sleeping.", "Joel Medina · Bronx · psychiatric care at Sun River Health", "Real story", { yt: "e5hGbhQvz4c", kind: "story" }],
-      ["YouTube", "3:18", "Kidney transplant patient: Medicaid covers his anti-rejection meds and home aide. Speaks English, then Spanish.", "Robert Cabrera · Bronx · Montefiore", "Real story", { yt: "5Skd_CO-Byk", start: 856, end: 1054, kind: "story", desc: true }],
-      ["YouTube", "story", "A mom on what Medicaid means for her autistic son.", "Phyllis Lombardi · NYC · borough not stated", "Real story", { yt: "VNe2scG_QNs", kind: "story", desc: true }],
-      ["YouTube", "compilation", "Sun River Health patients, seven 1-minute testimonials in one compilation.", "Sun River Health · NY", "Real story", { yt: "4WVhjBiXNDk", kind: "story", desc: true }],
-      ["YouTube", "news", "Over half of Bronx residents rely on Medicaid.", "Rep. Ritchie Torres · Bronx", "News", { yt: "Zldc5J7q5pQ", kind: "news", desc: true }],
+      ["BronxNet", "news", "A Bronx call to action on protecting SNAP and Medicaid. About 30,000 Bronx residents are at risk of losing coverage.", "BronxNet · June 2026", "News", { yt: "CL-HHwAj9jo", kind: "news", fit: "direct", desc: true }],
+      ["YouTube", "1:55", "1199SEIU members rally at Montefiore against proposed Medicaid cuts.", "Ruby Graham and 1199SEIU members · Bronx · 2019", "Real story", { yt: "RyVWvO6FyCU", kind: "story", fit: "context", desc: true }],
+      ["YouTube", "1:53", "Without the help of Medicaid, I'd be in the train system, sleeping.", "Joel · Sun River Health patient", "Real story", { yt: "e5hGbhQvz4c", kind: "story", fit: "context" }],
+      ["YouTube", "3:18", "Kidney transplant patient: Medicaid covers his anti-rejection meds and home aide. Speaks English, then Spanish.", "Robert Cabrera · Bronx · Rep. Espaillat's Medicaid Day of Action", "Real story", { yt: "5Skd_CO-Byk", start: 856, end: 1054, kind: "story", fit: "context", desc: true }],
+      ["YouTube", "2:52", "A mom on what Medicaid means for her autistic son.", "Phyllis Lombardi · Rep. Ritchie Torres · borough not stated", "Real story", { yt: "VNe2scG_QNs", kind: "story", fit: "context", desc: true }],
+      ["YouTube", "3:26", "Sun River Health patients share how Medicaid has affected their lives.", "Sun River Health · compilation", "Real story", { yt: "4WVhjBiXNDk", kind: "story", fit: "context", desc: true }],
+      ["YouTube", "1:34", "Medicaid is not just a line item in the budget.", "Rep. Ritchie Torres · Bronx", "News", { yt: "Zldc5J7q5pQ", kind: "news", fit: "context" }],
       ["Shorts", "0:58", "I'm a caregiver. Does that count as work?", "Enrollee · Brooklyn", "1h ago"],
       ["TikTok", "0:42", "In July I work 60 hours a week. In January there's nothing.", "Concessions · Far Rockaway", "4h ago"],
       ["Facebook", "0:31", "School's out July and August. So am I.", "Cafeteria worker · Soundview", "8h ago"],
       ["Reddit", "post", "Nobody told me I have to report. Report where?", "Home attendant · Brownsville", "1d ago"],
       ["TikTok", "0:27", "My insulin is $300. Without Medicaid I just won't take it.", "Event staff · Harlem", "2d ago"],
     ] },
-  { id: "ep", stage: "enroll", agency: "NY State of Health", reach: 42000, harm: 66, shape: "step",
+  { id: "ep", stage: "enroll", agency: "NY State of Health", note: "Since July 1, 2026, people earning 200–250% of the poverty line no longer qualify.", reach: 42000, harm: 66, shape: "step",
     title: "Essential Plan change confusion",
     clips: [
-      ["ABC7", "news", "An NYC freelancer opens the email saying his Essential Plan is ending.", "Mike Walsh · NYC · ABC7", "Real story", { yt: "WflVUmR-_3g", kind: "story", desc: true }],
+      ["ABC7", "3:32", "450,000 New Yorkers are losing their Essential Plan. An NYC freelancer opens the email saying his coverage ends.", "Mike Walsh · NYC · ABC7, Dec 2025", "Real story", { yt: "WflVUmR-_3g", kind: "story", fit: "direct", desc: true }],
       ["TikTok", "0:35", "My letter says I'm moved. Moved to what?", "Enrollee · Corona", "5h ago"],
       ["Facebook", "0:48", "Am I still covered next month? Nobody can say.", "Enrollee · Sunset Park", "1d ago"],
       ["Reddit", "post", "Three different answers from three different people.", "Enrollee · Flushing", "3d ago"],
     ] },
-  { id: "msp", stage: "enroll", agency: "NYSOFA HIICAP", reach: 33000, harm: 58, shape: "climb",
+  { id: "msp", stage: "enroll", agency: "NYC HRA", note: "HRA processes MSP applications in NYC. HIICAP (NYC Aging) offers free counseling.", reach: 33000, harm: 58, shape: "climb",
     title: "Seniors miss Medicare Savings help",
     clips: [
-      ["YouTube", "story", "Bronx seniors on Medicare telehealth, with Rep. Torres.", "Audrey & Dr. Herbert Mittman · Bronx", "Real story", { yt: "AHicvj5_74E", kind: "story", desc: true }],
+      ["YouTube", "0:59", "Bronx seniors on why Medicare telehealth is a lifeline.", "Audrey & Dr. Herbert Mittman · Bronx · Rep. Ritchie Torres", "Real story", { yt: "AHicvj5_74E", kind: "story", fit: "context", desc: true }],
       ["Facebook", "1:10", "I paid my Part B for years. I qualified the whole time.", "Retiree, 71 · Bronx", "6h ago"],
       ["YouTube", "2:04", "My mother didn't know this program existed.", "Daughter · Washington Heights", "2d ago"],
       ["Reddit", "post", "The form is 14 pages. She's 83.", "Caregiver · Queens", "4d ago"],
     ] },
-  { id: "cdpap", stage: "care", agency: "NYS DOH", reach: 71000, harm: 87, shape: "spike", tag: "▲ SPIKING", hot: true,
+  { id: "cdpap", stage: "care", agency: "NYS DOH", note: "Since April 1, 2025, Public Partnerships LLC (PPL) is the only CDPAP fiscal intermediary.", reach: 71000, harm: 87, shape: "spike", tag: "▲ SPIKING", hot: true,
     title: "Home-care aides unpaid after CDPAP switch",
     clips: [
-      ["YouTube", "0:43", "Paralyzed at 15, Medicaid-funded home care let him finish college and raise a family.", "Jose Hernandez · Bronx · shared by Rep. Ritchie Torres", "Real story", { yt: "6DaH3Pg0pNg", kind: "story", desc: true }],
-      ["YouTube", "rally", "Ruby Graham and other 1199SEIU patients at the Stop the Medicaid Cuts rally.", "Ruby Graham · Bronx · 2019", "Real story", { yt: "RyVWvO6FyCU", kind: "story", desc: true }],
+      ["YouTube", "0:42", "Paralyzed as a teenager, Medicaid-funded home care let him finish college and raise a family.", "Jose Hernandez · Bronx · Rep. Ritchie Torres", "Real story", { yt: "6DaH3Pg0pNg", kind: "story", fit: "context", desc: true }],
       ["TikTok", "0:42", "If I stop, my mother can't get out of bed.", "Aide · Bronx", "2h ago"],
       ["Facebook", "0:31", "My hours say zero. I worked 60.", "Aide · Brooklyn", "5h ago"],
       ["Reddit", "post", "My aide cried in my kitchen today.", "Consumer, 78 · Bronx", "9h ago"],
@@ -392,7 +404,7 @@ const PROBLEMS = [
       ["TikTok", "0:27", "If she quits, I go to a nursing home.", "Consumer · Manhattan", "2d ago"],
       ["Facebook", "0:49", "I love this work. I can't afford it.", "Aide · Bronx", "3d ago"],
     ] },
-  { id: "rides", stage: "care", agency: "NYS DOH", reach: 12000, harm: 55, shape: "bump",
+  { id: "rides", stage: "care", agency: "NYS DOH", note: "DOH contracts Medical Answering Services (MAS) to run Medicaid trips.", reach: 12000, harm: 55, shape: "bump",
     title: "Medicaid rides no-show",
     clips: [
       ["TikTok", "0:20", "Missed dialysis again. The van never came.", "Patient · East New York", "7h ago"],
@@ -404,17 +416,17 @@ const PROBLEMS = [
       ["Reddit", "post", "Called 11 dentists. Zero take Medicaid.", "Parent · Queens", "1d ago"],
       ["TikTok", "0:25", "My son's tooth has hurt for two months.", "Parent · Brooklyn", "3d ago"],
     ] },
-  { id: "renewal", stage: "renew", agency: "NYC HRA", reach: 138000, harm: 81, shape: "escalate", tag: "PERSISTENT · 90 DAYS",
+  { id: "renewal", stage: "renew", agency: "NYC HRA", note: "HRA renews 65+, disability and long-term care cases. Most other renewals run through NY State of Health.", reach: 138000, harm: 81, shape: "escalate", tag: "PERSISTENT · 90 DAYS",
     title: "Renewal packets arrive late, so enrollees lose coverage",
     clips: [
-      ["BronxNet", "news", "Sen. Gustavo Rivera urges Bronx residents to recertify their Medicaid.", "BronxNet · Bronx news", "News", { yt: "CTUF6lcWotU", kind: "news", desc: true }],
+      ["BronxNet", "news", "The Bronx is Covered: Sen. Gustavo Rivera urges Bronx residents to recertify their Medicaid.", "BronxNet · 2024", "News", { yt: "CTUF6lcWotU", kind: "news", fit: "direct", desc: true }],
       ["Reels", "1:05", "I found out my son lost coverage at the pharmacy counter. Nobody sent us anything.", "Parent · Queens", "3h ago"],
       ["TikTok", "0:33", "The letter came the day after the deadline.", "Enrollee · Bronx", "6h ago"],
       ["Facebook", "0:52", "I renewed online. It still says terminated.", "Enrollee · Harlem", "1d ago"],
       ["Reddit", "post", "Third time this year I've had to reapply from scratch.", "Enrollee · Brooklyn", "2d ago"],
       ["YouTube", "1:40", "My chemo was scheduled. Then I wasn't covered.", "Patient · Staten Island", "4d ago"],
     ] },
-  { id: "pharmacy", stage: "renew", agency: "NYS DOH", reach: 21000, harm: 62, shape: "surge",
+  { id: "pharmacy", stage: "renew", agency: "NYS DOH", note: "Pharmacy claims run through NYRx (DOH). The termination itself comes from HRA or NY State of Health.", reach: 21000, harm: 62, shape: "surge",
     title: "Coverage shows terminated at pharmacy",
     clips: [
       ["TikTok", "0:29", "Walked out without my inhaler.", "Enrollee · Hunts Point", "8h ago"],
@@ -432,6 +444,7 @@ const PROBLEMS = [
 const $ = (s, el = document) => el.querySelector(s);
 const fmtK = n => n >= 1000 ? Math.round(n / 1000) + "k" : String(n);
 const fmt = n => n.toLocaleString("en-US");
+const plural = (n, w) => `${n} ${w}${n === 1 ? "" : "s"}`;
 
 function heat(h) {           // Harm Score → heat step 0..7
   const stops = [52, 57, 61, 65, 70, 78, 85];
@@ -463,7 +476,7 @@ function trend(p) {          // 90 days of posts/day
     return Math.max(1, Math.round(base * Math.max(.04, v + n) * 10));
   });
 }
-const rank = c => (c[5] ? (c[5].kind === "story" ? 0 : 1) : 2);   // real stories, then news, then samples
+const rank = c => (c[5] ? (c[5].fit === "direct" ? 0 : c[5].kind === "story" ? 1 : 2) : 3);   // on-topic real, real context, news, samples
 PROBLEMS.forEach(p => { p.series = trend(p); p.clips.sort((a, b) => rank(a) - rank(b)); });
 
 function sparkPath(series, w, h, pad = 2) {
@@ -485,7 +498,7 @@ function renderFilters() {
   const inView = PROBLEMS.filter(p => !state.agency || p.agency === state.agency).reduce((s, p) => s + p.reach, 0);
   el.innerHTML = `<span class="lbl">Agency</span>` +
     `<button class="chip" data-agency="" aria-pressed="${!state.agency}">All agencies</button>` +
-    AGENCIES.map(a => `<button class="chip" data-agency="${a}" aria-pressed="${state.agency === a}">${a} · ${counts[a]}</button>`).join("") +
+    AGENCIES.map(a => `<button class="chip" data-agency="${a}" aria-pressed="${state.agency === a}" data-tip="${AGENCY_INFO[a]}" aria-describedby="tip-${a.replace(/\W+/g, "")}">${a} · ${counts[a]}</button><span hidden id="tip-${a.replace(/\W+/g, "")}">${AGENCY_INFO[a]}</span>`).join("") +
     `<span class="inview"><b>${fmt(inView)}</b> New Yorkers affected in view</span>`;
 }
 
@@ -503,7 +516,7 @@ function renderCols() {
     const total = items.reduce((a, p) => a + p.reach, 0);
     return `<div class="col" style="flex:${total}">` + items.map(p => {
       const lvl = heat(p.harm), light = lvl <= 1;
-      const clip = p.clips.find(c => !c[5] || c[5].kind === "story") || p.clips[0];
+      const clip = p.clips.find(c => c[5] && c[5].fit === "direct" && c[5].kind === "story") || p.clips.find(c => !c[5]) || p.clips[0];
       return `<button class="tile ${light ? "light" : ""}" data-id="${p.id}" style="flex:${p.reach};background:var(--heat-${lvl})"
           aria-pressed="${state.selected === p.id}" aria-label="${p.title}, ${fmt(p.reach)} New Yorkers affected, Harm Score ${p.harm}">
         <div class="top-part">
@@ -544,8 +557,9 @@ function renderSelected() {
   const change = Math.round((avg(s.slice(-7)) / avg(s.slice(0, 7)) - 1) * 100);
   $("#selected").innerHTML = `
     <div class="who">
-      <span class="eyebrow">${stage.n} · ${stage.name} · ${p.agency}</span>
+      <span class="eyebrow">${stage.n} · ${stage.name} · <span class="tip-label" tabindex="0" data-tip="${AGENCY_INFO[p.agency]}">${p.agency}</span></span>
       <h3>${p.title}</h3>
+      ${p.note ? `<span class="note">${p.note}</span>` : ""}
     </div>
     <div class="big">${fmt(p.reach)}<small>New Yorkers affected · Harm ${p.harm}</small></div>
     <div class="chart" id="chart">
@@ -575,7 +589,7 @@ function renderSelected() {
 
 function renderFeed() {
   const p = PROBLEMS.find(x => x.id === state.selected);
-  $("#feedTitle").innerHTML = `Voices · ${p.title}<span>${p.clips.filter(c => c[5]).length} real videos · ${p.clips.filter(c => !c[5]).length} sample clips</span>`;
+  $("#feedTitle").innerHTML = `Voices · ${p.title}<span>${plural(p.clips.filter(c => c[5]).length, "real video")} · ${plural(p.clips.filter(c => !c[5]).length, "sample clip")} (illustrative)</span>`;
   const lvl = heat(p.harm);
   $("#feed").innerHTML = p.clips.map((c, i) => {
     const shade = `var(--heat-${Math.max(2, Math.min(7, lvl - (i % 3)))})`;
@@ -583,11 +597,11 @@ function renderFeed() {
     return `<button class="card" data-play="${i}" aria-label="Play: ${c[2]}">
       <div class="vid ${v && v.yt ? "yt" : ""}" style="${bg}">
         <span class="plat">${c[0]}${!["post", "news", "story", "rally", "compilation"].includes(c[1]) ? " · " + c[1] : ""}</span>
-        ${v ? `<span class="real ${v.kind === "news" ? "news" : ""}">${v.kind === "news" ? "NEWS" : "REAL STORY"}</span>` : c.isNew ? `<span class="new">NEW</span>` : ""}
+        ${v ? `<span class="real ${v.kind === "news" ? "news" : ""}">${v.kind === "news" ? "NEWS" : "REAL STORY"}${v.fit === "context" ? " · CONTEXT" : ""}</span>` : c.isNew ? `<span class="new">NEW</span>` : ""}
         <span class="play"></span>
         ${v && v.desc ? `<span class="desc">${c[2]}</span>` : `<q>${c[2]}</q>`}
       </div>
-      <span class="meta">${c[3]}${v ? "" : " · " + c[4]}</span>
+      <span class="meta">${c[3]}${v ? (v.fit === "context" ? " · on what Medicaid covers" : "") : " · " + c[4] + " · sample"}</span>
     </button>`;
   }).join("");
   $("#feed").scrollLeft = 0;
