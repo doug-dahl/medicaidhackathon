@@ -235,6 +235,96 @@
 
   .toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px); background: var(--nys-color-ink); color: #fff; font-size: 14px; font-weight: 600; padding: 12px 18px; opacity: 0; transition: .25s; pointer-events: none; z-index: 60; }
   .toast.show { opacity: 1; transform: translateX(-50%); }
+
+  /* ---------- views ---------- */
+  [hidden] { display: none !important; }
+  .eyebrow { font-family: var(--font-alt); font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nys-color-text-weak); }
+  a.btn { display: block; color: inherit; text-decoration: none; text-align: center; }
+  .tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .tile.xs .tags { display: none; }
+  .tile .tag.fix { background: #fff; border-color: #fff; color: var(--nys-color-ink); }
+  .tile.light .tag.fix { background: var(--nys-color-ink); border-color: var(--nys-color-ink); color: #fff; }
+
+  /* ---------- design impact ---------- */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .pillar { padding: 16px 18px 18px; background: var(--nys-color-theme-weaker); border-top: 3px solid var(--primary); display: flex; flex-direction: column; gap: 6px; }
+  body.lofi .pillar { background: #f2f2f2; }
+  .pillar b { font-size: 16px; font-weight: 800; }
+  .pillar p { margin: 0; font-size: 13px; line-height: 19px; color: var(--nys-color-text-weak); }
+  .pillar .sub { font-size: 12px; line-height: 18px; color: var(--nys-color-text-weak); margin-top: 4px; }
+  .pillar .sub b { font-size: 12px; font-weight: 700; color: var(--nys-color-ink); }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .stat { padding: 16px 18px; border: 1px solid #d0d0ce; display: flex; flex-direction: column; gap: 6px; }
+  .stat .num { font-size: 34px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+  .stat .lbl { font-size: 13px; line-height: 19px; font-weight: 600; }
+  .stat .src, .std .src, .case .src { font-size: 11px; line-height: 16px; color: var(--nys-color-text-weaker); }
+  .stat .src a, .std .src a, .case .src a, .note a { color: inherit; }
+
+  .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 14px; }
+  .section-head h3 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
+  .section-head p { margin: 4px 0 0; font-size: 14px; line-height: 21px; color: var(--nys-color-text-weak); max-width: 660px; }
+  .section-head .hint { font-size: 12px; color: var(--nys-color-text-weak); white-space: nowrap; }
+  .section-head .hint b { color: var(--nys-color-ink); }
+
+  .stds { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .std { text-align: left; padding: 14px 16px; border: 1px solid #bec0c1; display: flex; flex-direction: column; gap: 8px; transition: opacity .2s; min-height: 150px; }
+  .std:hover { border-color: var(--nys-color-ink); }
+  .std[aria-pressed="true"] { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary) inset; }
+  .std.dim { opacity: .3; }
+  .std .code { font-family: var(--font-alt); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--nys-color-text-weak); }
+  .std b { font-size: 14px; line-height: 19px; }
+  .std span.desc { font-size: 12px; line-height: 17px; color: var(--nys-color-text-weak); }
+  .std .src { margin-top: auto; }
+  .std .uses { font-size: 11px; font-weight: 700; padding: 1px 6px; background: var(--primary); color: #fff; align-self: flex-start; }
+
+  .cases { display: flex; flex-direction: column; gap: 20px; }
+  .case { border: 1.5px solid var(--nys-color-ink); transition: opacity .25s; scroll-margin-top: 80px; }
+  .case.dim { opacity: .18; }
+  .case.is-open { border-style: dashed; }
+  .case-top { display: grid; grid-template-columns: minmax(0, 1.15fr) 380px minmax(0, .95fr); gap: 32px; padding: 22px 24px 24px; }
+  .case h3 { margin: 6px 0 10px; font-size: 24px; font-weight: 800; letter-spacing: -.015em; line-height: 1.15; }
+  .case p { margin: 0; font-size: 14px; line-height: 21px; color: var(--nys-color-text-weak); }
+  .case .status { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .06em; padding: 2px 6px; margin-left: 10px; vertical-align: middle; white-space: nowrap; }
+  .case .status.shipped { background: var(--highlight); color: var(--nys-color-ink); }
+  body.lofi .case .status.shipped { background: #1b1b1b; color: #fff; }
+  .case .status.open { border: 1px solid var(--nys-color-ink); }
+  .facts { margin: 14px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .facts li { font-size: 13px; line-height: 19px; padding-left: 14px; position: relative; }
+  .facts li::before { content: ""; position: absolute; left: 0; top: 7px; width: 6px; height: 6px; background: var(--primary); }
+  .case .src { margin-top: 12px; font-size: 12px; color: var(--nys-color-text-weak); }
+  .applied { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; align-items: center; }
+  .applied .lbl { font-size: 12px; font-weight: 600; color: var(--nys-color-text-weak); margin-right: 2px; }
+  .applied .chip { font-size: 12px; padding: 5px 10px; }
+
+  .impact { display: flex; flex-direction: column; gap: 16px; }
+  .impact .delta { display: flex; gap: 28px; }
+  .impact .big { font-size: 40px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+  .impact .big small { display: block; font-size: 12px; font-weight: 500; letter-spacing: 0; color: var(--nys-color-text-weak); margin-top: 6px; line-height: 16px; }
+  .impact .big .was { font-size: 20px; font-weight: 600; color: var(--nys-color-text-weaker); text-decoration: line-through; margin-right: 8px; }
+  .ichart svg { width: 100%; height: 88px; display: block; overflow: visible; }
+  .ichart .axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--nys-color-text-weaker); margin-top: 4px; }
+  .ichart .axis .mark { font-weight: 700; color: var(--nys-color-ink); }
+
+  .hoods { display: flex; flex-direction: column; gap: 10px; }
+  .hoods .hd { display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; color: var(--nys-color-text-weak); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
+  .hood { display: grid; grid-template-columns: 148px 1fr 48px; align-items: center; gap: 10px; font-size: 13px; }
+  .hood .nm { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hood .track { position: relative; height: 14px; border: 1px solid #d0d0ce; background: #fff; }
+  .hood .was { position: absolute; left: -1px; top: -1px; bottom: -1px; border: 1px dashed var(--nys-color-text-weaker); border-left: 0; }
+  .hood .now { position: absolute; left: 0; top: 0; bottom: 0; }
+  .hood .d { font-weight: 800; text-align: right; font-size: 13px; white-space: nowrap; }
+  .hood .d.down { color: #1e752e; }
+  .hood .d.up { color: #b3261e; }
+  body.lofi .hood .d.down, body.lofi .hood .d.up { color: inherit; }
+  .hoods .foot { font-size: 11px; line-height: 16px; color: var(--nys-color-text-weaker); margin-top: 2px; }
+
+  .case-vids { display: flex; gap: 14px; padding: 16px 24px 20px; border-top: 1px solid #d0d0ce; background: var(--nys-color-surface-raised); overflow-x: auto; scrollbar-width: thin; }
+  .case-vids .lbl { flex: 0 0 150px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; line-height: 17px; color: var(--nys-color-text-weak); }
+  .case-vids .lbl b { font-size: 13px; color: var(--nys-color-ink); }
+  .card.wide { flex: 0 0 256px; }
+  .card.wide .vid { aspect-ratio: 16/9; }
+  .note { margin: 0; font-size: 12px; line-height: 18px; color: var(--nys-color-text-weak); border-top: 1px solid #d0d0ce; padding-top: 14px; }
 </style>
 </head>
 <body>
@@ -243,7 +333,8 @@
     <div>
       <div class="brand"><b>Hearts &amp; Minds</b><span>NYS Office of Customer Experience</span></div>
       <nav class="nav" aria-label="Main">
-        <a href="#" class="on" aria-current="page"><i class="ico"></i>Radar</a>
+        <a href="#radar" class="on" aria-current="page" data-view="radar"><i class="ico"></i>Radar</a>
+        <a href="#impact" data-view="impact"><i class="ico"></i>Design impact<span class="count">4</span></a>
         <a href="#" data-soon><i class="ico"></i>Problems</a>
         <a href="#" data-soon><i class="ico"></i>Voices</a>
         <a href="#" data-soon><i class="ico"></i>Agency inbox<span class="count">7</span></a>
@@ -263,18 +354,23 @@
     <div class="nysbar"><span class="ny">NY</span>An official website of New York State</div>
     <header class="top">
       <div class="top-l">
-        <h1>Radar</h1>
+        <h1 id="viewTitle">Radar</h1>
         <div class="live"><i></i><b>LIVE</b><span id="updated">· updated just now</span></div>
         <span class="sample" title="Counts, Harm Scores, trends and unlabeled clips are illustrative. Videos marked Real story or News are real public videos.">Sample data</span>
       </div>
-      <div class="top-r">
+      <div class="top-r" id="topRadar">
         <span class="scope">Medicaid + Medicare · All NYC · Last 90 days</span>
         <button class="btn" data-toast="Alert set. You'll get an email when any problem spikes.">Set alert</button>
         <button class="btn primary" data-toast="Brief drafted with the top 3 problems and their clips.">Generate brief</button>
       </div>
+      <div class="top-r" id="topImpact" hidden>
+        <span class="scope">NYX standards · 4 cases · Pilot neighborhoods</span>
+        <button class="btn" data-toast="Case study exported as a one-page brief for the NYX Task Force.">Export</button>
+        <button class="btn primary" data-toast="Proposal opened. Tag a Radar problem, pick the standards, describe the fix.">Propose a fix</button>
+      </div>
     </header>
 
-    <section class="content">
+    <section class="content view" id="view-radar">
       <div class="head">
         <div>
           <h2>Medicaid pain points</h2>
@@ -299,6 +395,38 @@
         </div>
         <div class="feed-wrap" id="feedWrap" style="margin-top:14px"><div class="feed" id="feed"></div></div>
       </div>
+    </section>
+
+    <section class="content view" id="view-impact" hidden>
+      <div class="head">
+        <div>
+          <h2>What changed</h2>
+          <p>An agency ships a fix. We tag it to a problem on the Radar and score it against the standards the NYS Office of Customer Experience has published. Then we check whether the neighborhoods that got the fix report fewer problems.</p>
+        </div>
+        <div class="legend">Lower risk <span class="ramp"><i style="background:var(--heat-0)"></i><i style="background:var(--heat-2)"></i><i style="background:var(--heat-4)"></i><i style="background:var(--heat-6)"></i><i style="background:var(--heat-7)"></i></span> Higher risk</div>
+      </div>
+
+      <div>
+        <div class="section-head"><div><span class="eyebrow">NYX Customer Experience Strategy · Nov 2024</span><h3 style="margin-top:6px">The three pillars</h3></div><span class="hint">Five measures: <b>Closing gaps · Time tax · Efficiency · Digital · Satisfaction</b></span></div>
+        <div class="pillars" id="pillars"></div>
+      </div>
+
+      <div>
+        <div class="section-head"><div><h3>What the state has already done</h3><p>Results the Department of Health and NY State of Health have published. The case studies below take the same fixes to NYC neighborhoods.</p></div></div>
+        <div class="stats" id="stats"></div>
+      </div>
+
+      <div>
+        <div class="section-head"><div><h3>The standards</h3><p>From the NYX Playbook, the Digital First Standards, and the NYS Design System. Select one to see which fixes used it.</p></div><span class="hint" id="stdHint"></span></div>
+        <div class="stds" id="stds" role="group" aria-label="Filter case studies by standard"></div>
+      </div>
+
+      <div>
+        <div class="section-head"><div><h3>Case studies</h3><p>Three fixes in pilot neighborhoods. One problem with no fix yet. Risk is the Harm Score for one neighborhood. The dashed line is the number before the fix.</p></div></div>
+        <div class="cases" id="cases"></div>
+      </div>
+
+      <p class="note">Each published result links to its source on NY.gov, the NYS Office of Customer Experience, or the NYS Department of Health. Pilot neighborhoods, risk numbers, and post trends are sample data for the demo. Videos are public YouTube videos with their original attribution. Harm Score is explained under “How problems are ranked.” Pillars: <a href="https://www.ny.gov/new-york-experience-nyx/three-pillars-new-yorks-cx" target="_blank" rel="noopener">Three Pillars of New York's CX</a> · Standards: <a href="https://www.ny.gov/new-york-experience-nyx/digital-first-standards" target="_blank" rel="noopener">Digital First Standards</a> · Components: <a href="https://designsystem.ny.gov/" target="_blank" rel="noopener">NYS Design System</a>.</p>
     </section>
   </main>
 </div>
@@ -445,6 +573,103 @@ const PROBLEMS = [
     ] },
 ];
 
+/* ------------------------------------------------- design impact data */
+const SRC = {
+  dfs:      { label: "Digital First Standards · NYS Digital Service", url: "https://www.ny.gov/new-york-experience-nyx/digital-first-standards" },
+  strategy: { label: "NYS Customer Experience Strategy · Nov 2024", url: "https://www.ny.gov/sites/default/files/2024-11/NYS-CX-Strategy-Nov-24.pdf" },
+  pillars:  { label: "Three Pillars of New York's CX", url: "https://www.ny.gov/new-york-experience-nyx/three-pillars-new-yorks-cx" },
+  playbook: { label: "NYX Playbook · Call Center Standards", url: "https://www.ny.gov/programs/new-york-experience-nyx" },
+  nysds:    { label: "NYS Design System", url: "https://designsystem.ny.gov/" },
+  annual:   { label: "NYS CX Annual Report Summary · Nov 2024", url: "https://www.ny.gov/sites/default/files/2024-11/NYS-CX-Annual-Report-Summary-Nov-24.pdf" },
+  accomp:   { label: "NYX Accomplishments · ny.gov", url: "https://www.ny.gov/new-york-experience-nyx/new-york-state-experience-accomplishments" },
+  blog26:   { label: "CX Accomplishments Across NYS · Feb 2026", url: "https://www.ny.gov/blog/cx-accomplishments-across-new-york-state" },
+  cdpap:    { label: "NYS DOH CDPAP transition update · Mar 2025", url: "https://www.health.ny.gov/press/releases/2025/2025-03-24_cdpap_update.htm" },
+  nyha:     { label: "NY Health Access · CDPAP transition archive", url: "https://nyhealthaccess.org/entry/256/" },
+};
+const link = s => `<a href="${s.url}" target="_blank" rel="noopener">${s.label}</a>`;
+
+// The three NYX pillars, as published by the Office of Customer Experience.
+const PILLARS = [
+  { name: "Customer-Centric Design", desc: "Listen to residents. Design services they can use. Make the path to help clear.", sub: ["Human-centered design", "Plain language", "Customer service standards", "Digital First Standards", "Trust and transparency"] },
+  { name: "Innovative Solutions", desc: "Use data and modern tools to make access simpler.", sub: ["Voice of the customer", "Journey assessments", "Policy reviews", "Process improvement"] },
+  { name: "Commitment to Excellence", desc: "Set performance standards. Hold agencies to them. Keep improving.", sub: ["CX culture", "CX teams", "Annual action plans and reporting"] },
+];
+
+// Documented statewide results the case studies build on.
+const STATS = [
+  { num: "~70%", lbl: "Medicaid renewals completed automatically, against a target of 50%, after DOH and the U.S. Digital Service automated eligibility checks.", src: SRC.annual },
+  { num: "20%", lbl: "Enrollment gaps closed year over year after DOH changed the Medicaid renewal process.", src: SRC.annual },
+  { num: "30 min", lbl: "Cut from the time it takes to apply for Medicaid after the application was made to work on a phone, for 3.4 million users.", src: SRC.annual },
+  { num: "650k", lbl: "Texts and WhatsApp messages in 7 languages from NY State of Health. 41% of the people who got one secured coverage.", src: SRC.accomp },
+];
+
+// Design standards proposed by the NYS Office of Customer Experience and the NYS Digital Service.
+const STANDARDS = [
+  { id: "plain",      code: "Content",        short: "Plain language",        name: "Plain language at an eighth-grade reading level", desc: "Limited jargon, short descriptive headings, content in small logical sections.", src: SRC.dfs },
+  { id: "cta",        code: "Design",         short: "Clear call to action",  name: "Clear, prominent calls to action", desc: "The next step is visible. The important thing comes first.", src: SRC.dfs },
+  { id: "mobile",     code: "Design",         short: "Mobile-first",          name: "Mobile-first, with a focus on content", desc: "Works on the phone people have. Responsive on every device and current browser.", src: SRC.dfs },
+  { id: "lang",       code: "Content",        short: "Language access",       name: "Multilingual support for limited-English users", desc: "Translations tested for accuracy. Outreach to the communities the state has missed.", src: SRC.dfs },
+  { id: "a11y",       code: "Accessibility",  short: "WCAG 2.2 AA",           name: "Conforms to WCAG 2.2 AA", desc: "Tested with screen readers and keyboards. Captions and ASL on video. A published accessibility statement.", src: SRC.dfs },
+  { id: "hcd",        code: "6-month objective", short: "Human-centered design", name: "Human-centered design on every customer-facing project", desc: "Research with New Yorkers while the project is researched, built, and rolled out.", src: SRC.strategy },
+  { id: "forms",      code: "Design",         short: "Digital forms first",   name: "Digital forms whenever possible", desc: "Tested with users. Refined. Tested again.", src: SRC.dfs },
+  { id: "callcenter", code: "Playbook",       short: "Call center standards", name: "Call center standards: call-backs over holds", desc: "Short menus. A call back for callers who do not speak English. A survey after the call.", src: SRC.playbook },
+  { id: "measure",    code: "Governance",     short: "Measure and report",    name: "Define KPIs, measure, and report impact", desc: "An analytics plan, feedback surveys, and an annual action plan for the three critical agencies.", src: SRC.strategy },
+  { id: "nysds",      code: "Components",     short: "NYS Design System",     name: "Ship with shared NYS Design System components", desc: "nys-alert, nys-processlist, nys-stepper. Built to WCAG AA and matched to the Figma library.", src: SRC.nysds },
+];
+
+// Case studies: a design fix tagged to a Radar problem, and what happened to the neighborhoods that got it.
+// Documented facts carry a source. Pilot neighborhoods and risk numbers are sample data.
+const yt = (plat, desc, meta, id, kind = "story", extra = {}) => [plat, kind, desc, meta, kind === "news" ? "News" : "Real story", Object.assign({ yt: id, kind, desc: true }, extra)];
+const CASES = [
+  { id: "envelope", n: 1, problem: "renewal", agency: "NYS DOH + NYC HRA", measure: "Closing gaps", status: "shipped", shipDay: 48, floor: .42,
+    title: "The renewal envelope now says renew",
+    what: "In focus groups run with the U.S. Digital Service, New Yorkers said the Medicaid renewal envelope looked like junk mail. They did not open it. The deadline passed. DOH redesigned the envelope. It now says it is time to renew, in large red type, and the notice inside is in plain language. HRA is piloting the same envelope in five NYC districts.",
+    facts: ["Administrative renewal rate reached about 70% against a 50% target", "Enrollment gaps closed 20% over the prior year", "Renewals rose as soon as the new envelope went out"],
+    source: SRC.annual, standards: ["cta", "plain", "hcd", "measure"],
+    harmBefore: 81, harmAfter: 59,
+    hoods: [["Soundview · Bronx", 88, 61], ["Jamaica · Queens", 82, 58], ["Central Harlem · Manhattan", 76, 54], ["East New York · Brooklyn", 73, 57], ["Stapleton · Staten Island", 64, 49]],
+    videos: [
+      yt("BronxNet", "The Bronx is Covered: Sen. Gustavo Rivera urges residents to recertify, and shows them how.", "BronxNet · Bronx", "CTUF6lcWotU", "news"),
+      yt("YouTube", "Michelle got her renewal notice, called a Certified Enrollment Assistor, and stayed covered.", "Michelle · NY State of Health", "1ZrR7HxU3-I"),
+      yt("YouTube", "Robert's Medicaid covers his anti-rejection meds and his home aide. In English, then Spanish.", "Robert Cabrera · Bronx · Montefiore", "5Skd_CO-Byk", "story", { start: 856, end: 1054 }),
+    ] },
+  { id: "nudges", n: 2, problem: "language", agency: "NY State of Health + NYC HRA", measure: "Improving the digital experience", status: "shipped", shipDay: 62, floor: .5,
+    title: "Renewal reminders by text, in seven languages",
+    what: "Enrollees said the notice came in English only, or did not come. NY State of Health now sends renewal reminders by text and WhatsApp in seven languages. Each one is short and has one link to renew from a phone. The NYC pilot covers the five neighborhoods where notices in the wrong language caused the most posts.",
+    facts: ["650,000 messages sent in 7 languages", "41% of the people who got a message secured coverage", "Hundreds of thousands of New Yorkers re-enrolled"],
+    source: SRC.accomp, standards: ["lang", "mobile", "plain", "measure"],
+    harmBefore: 57, harmAfter: 44,
+    hoods: [["Washington Heights · Manhattan", 74, 48], ["Jamaica · Queens", 71, 50], ["Corona · Queens", 68, 47], ["Sunset Park · Brooklyn", 63, 44], ["Flushing · Queens", 60, 41]],
+    videos: [
+      yt("YouTube", "Robert tells his story in English, then again in Spanish, so his neighbors hear it too.", "Robert Cabrera · Bronx · Montefiore", "5Skd_CO-Byk", "story", { start: 856, end: 1054 }),
+      yt("YouTube", "Seven Sun River Health patients on what staying covered let them do.", "Sun River Health · NY", "4WVhjBiXNDk"),
+      yt("YouTube", "A mom on what Medicaid means for her autistic son.", "Phyllis Lombardi · NYC", "VNe2scG_QNs"),
+    ] },
+  { id: "callback", n: 3, problem: "helpline", agency: "NYS DOH + NYC HRA", measure: "Reducing the time tax", status: "shipped", shipDay: 40, floor: .55,
+    title: "The helpline calls back",
+    what: "Callers waited more than an hour, often in a language the menu did not offer. DOH shortened the menu, added messages about renewal, and let callers who do not speak English ask for a call back instead of waiting. The HRA Medicaid helpline is piloting the same call back and a survey in nine languages.",
+    facts: ["Shorter phone menus, with messages about renewal", "Call backs and phone surveys in nine languages", "Tax and Finance replaced hold times with call backs. This pilot copies that."],
+    source: SRC.annual, standards: ["callcenter", "lang", "plain", "measure"],
+    harmBefore: 68, harmAfter: 52,
+    hoods: [["Jamaica · Queens", 79, 58], ["Mott Haven · Bronx", 75, 55], ["Flatbush · Brooklyn", 69, 53], ["Far Rockaway · Queens", 66, 50], ["Central Harlem · Manhattan", 61, 47]],
+    videos: [
+      yt("YouTube", "35 formerly homeless MetroPlus members moved into housing once someone picked up.", "MetroPlus members · NYC", "RZ5Fi5jn5Oo"),
+      yt("YouTube", "Without Medicaid, Joel says, he would be sleeping in the train system.", "Joel Medina · Bronx · Sun River Health", "e5hGbhQvz4c"),
+      yt("YouTube", "William, homeless in the Bronx, on getting treated for a hand infection.", "William Rada · Bronx", "PqxplFX8hVo"),
+    ] },
+  { id: "cdpap", n: 4, problem: "cdpap", agency: "NYS DOH", measure: "Increasing customer satisfaction", status: "open", shipDay: 96,
+    title: "CDPAP aides are still not paid",
+    what: "In April 2025 the state moved CDPAP payroll to one company. Aides report hours they were not paid for and no one to call. DOH has told plans and local districts to mail consumers a letter on how to get help. Legislators have asked for a clear phone escalation path. A design brief for a one-page pay notice and a published escalation path is with DOH. Nothing has shipped. The risk is still rising.",
+    facts: ["280,000 CDPAP consumers moved to one fiscal intermediary on April 1, 2025", "DOH ordered plans and local districts to send “how to get help” letters to consumers", "Legislators asked for faster pay disputes and a clearer phone escalation path"],
+    source: SRC.nyha, standards: ["plain", "cta", "callcenter", "a11y"],
+    hoods: [["Mott Haven · Bronx", 86, 91], ["Flatbush · Brooklyn", 80, 84], ["Jamaica · Queens", 77, 83], ["Stapleton · Staten Island", 72, 78], ["Washington Heights · Manhattan", 70, 76]],
+    videos: [
+      yt("YouTube", "Paralyzed at 15, Medicaid-funded home care let Jose finish college and raise a family.", "Jose Hernandez · Bronx · shared by Rep. Ritchie Torres", "6DaH3Pg0pNg"),
+      yt("YouTube", "Ruby Graham and other 1199SEIU patients at the Stop the Medicaid Cuts rally.", "Ruby Graham · Bronx", "RyVWvO6FyCU"),
+      yt("YouTube", "Over half of Bronx residents rely on Medicaid.", "Rep. Ritchie Torres · Bronx", "Zldc5J7q5pQ", "news"),
+    ] },
+];
+
 /* --------------------------------------------------------------- helpers */
 const $ = (s, el = document) => el.querySelector(s);
 const fmtK = n => n >= 1000 ? Math.round(n / 1000) + "k" : String(n);
@@ -481,6 +706,24 @@ PROBLEMS.forEach(p => { p.series = trend(p); p.mentions = p.series.slice(-30).re
 // shade = mentions in the last 30 days, spread by rank so every step of the ramp is used
 [...PROBLEMS].sort((a, b) => a.mentions - b.mentions).forEach((p, i, arr) => p.lvl = Math.round(i / (arr.length - 1) * 7));
 
+// 120 days of posts/day for a case study: rising until the fix ships, then easing toward a floor.
+// Open cases keep climbing. Exaggerated on purpose, like the Radar trends.
+function impactSeries(c) {
+  const p = PROBLEMS.find(x => x.id === c.problem);
+  const r = rng(c.id.length * 131 + c.n * 17), base = p.reach / 3000;
+  return Array.from({ length: 120 }, (_, d) => {
+    const n = (r() - .5) * .12;
+    let v;
+    if (c.status === "open") v = .3 + Math.pow(d / 119, 2.2) * 2.4;
+    else if (d < c.shipDay) v = .6 + (d / c.shipDay) * .9;
+    else { const t = (d - c.shipDay) / (119 - c.shipDay); v = 1.5 - (1.5 - c.floor) * (1 - Math.exp(-t * 4)); }
+    return Math.max(1, Math.round(base * Math.max(.05, v + n) * 10));
+  });
+}
+const riskLvl = a => Math.max(0, Math.min(7, Math.floor((a - 30) / 8)));   // neighborhood risk 0–100 → heat step
+const dayLabel = d => new Date(Date.now() - (119 - d) * 864e5).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+CASES.forEach(c => { c.series = impactSeries(c); c.shipped = dayLabel(c.shipDay); });
+
 function sparkPath(series, w, h, pad = 2) {
   const max = Math.max(...series), min = 0;
   return series.map((v, i) => {
@@ -491,7 +734,7 @@ function sparkPath(series, w, h, pad = 2) {
 }
 
 /* ----------------------------------------------------------------- state */
-const state = { agency: null, selected: "cdpap", nextNewAt: 0 };
+const state = { agency: null, selected: "cdpap", nextNewAt: 0, view: "radar", std: null };
 
 /* ---------------------------------------------------------------- render */
 function renderFilters() {
@@ -521,10 +764,12 @@ function renderCols() {
       const clip = p.clips.find(c => c[5] && c[5].lead) || p.clips.find(c => c[5] && c[5].fit === "direct" && c[5].kind === "story")
         || p.clips.find(c => c[5] && c[5].kind === "story") || p.clips.find(c => !c[5]) || p.clips[0];
       const clipIdx = p.clips.indexOf(clip), real = clip[5] && clip[5].yt;
+      const cs = CASES.find(c => c.problem === p.id);
+      const tags = [p.tag ? `<span class="tag ${p.hot ? "hot" : ""}">${p.tag}</span>` : "", cs && cs.status !== "open" ? `<span class="tag fix">↘ FIX IN PILOT</span>` : ""].filter(Boolean).join("");
       return `<button class="tile ${light ? "light" : ""}" data-id="${p.id}" style="flex:${p.reach};background:var(--heat-${lvl})"
           aria-pressed="${state.selected === p.id}" aria-label="${p.title}, ${fmt(p.reach)} New Yorkers affected, ${fmt(p.mentions)} mentions in the last 30 days">
         <div class="top-part">
-          ${p.tag ? `<span class="tag ${p.hot ? "hot" : ""}">${p.tag}</span>` : ""}
+          ${tags ? `<div class="tags">${tags}</div>` : ""}
           <span class="title">${p.title}</span>
           <div class="preview"><span class="thumb ${real ? "yt" : ""}" data-pid="${p.id}" data-idx="${clipIdx}" title="Play this clip" style="${real ? `background-image:url(https://i.ytimg.com/vi/${clip[5].yt}/mqdefault.jpg)` : ""}"><span></span></span><span class="pv-text">${clip[5] && clip[5].desc ? `<span>${clip[2]}</span>` : `<q>${clip[2]}</q>`}${real ? `<small>${clip[3].split(" · ")[0]}</small>` : ""}</span></div>
         </div>
@@ -559,6 +804,7 @@ function renderSelected() {
   const stage = STAGES.find(s => s.id === p.stage);
   const s = p.series, avg = a => a.reduce((x, y) => x + y, 0) / a.length;
   const change = Math.round((avg(s.slice(-7)) / avg(s.slice(0, 7)) - 1) * 100);
+  const cs = CASES.find(c => c.problem === p.id);
   $("#selected").innerHTML = `
     <div class="who">
       <span class="eyebrow">${stage.n} · ${stage.name} · <span class="tip-label" tabindex="0" data-tip="${AGENCY_INFO[p.agency]}">${p.agency}</span></span>
@@ -578,6 +824,7 @@ function renderSelected() {
     <div class="acts">
       <button class="btn primary" data-play="0">▶ Watch compilation</button>
       <button class="btn" data-toast="Sent to ${p.agency} with the top clips and the 90-day trend.">Send to ${p.agency}</button>
+      ${cs ? `<a class="btn" href="#impact/${cs.id}">${cs.status === "open" ? "Design brief open →" : "See design impact →"}</a>` : ""}
     </div>`;
   const chart = $("#chart"), cursor = $("#cursor"), readout = $("#readout");
   chart.addEventListener("mousemove", e => {
@@ -612,6 +859,100 @@ function renderFeed() {
   updateArrows();
 }
 
+/* --------------------------------------------------------- design impact */
+function renderPillars() {
+  $("#pillars").innerHTML = PILLARS.map((pl, i) => `<div class="pillar">
+    <span class="eyebrow">Pillar ${i + 1}</span><b>${pl.name}</b><p>${pl.desc}</p>
+    <span class="sub"><b>Includes</b> · ${pl.sub.join(" · ")}</span></div>`).join("");
+}
+function renderStats() {
+  $("#stats").innerHTML = STATS.map(st => `<div class="stat"><span class="num">${st.num}</span><span class="lbl">${st.lbl}</span><span class="src">${link(st.src)}</span></div>`).join("");
+}
+function renderStds() {
+  $("#stds").innerHTML = STANDARDS.map(st => {
+    const uses = CASES.filter(c => c.standards.includes(st.id)).length;
+    return `<button class="std ${state.std && state.std !== st.id ? "dim" : ""}" data-std="${st.id}" aria-pressed="${state.std === st.id}">
+      <span class="code">${st.code}</span><b>${st.name}</b><span class="desc">${st.desc}</span>
+      <span class="src">${link(st.src)}</span><span class="uses">${uses} case${uses === 1 ? "" : "s"}</span></button>`;
+  }).join("");
+  const st = STANDARDS.find(x => x.id === state.std);
+  $("#stdHint").innerHTML = st ? `Showing fixes that used <b>${st.short}</b> · <button class="chip" data-std="${st.id}" style="padding:3px 8px;font-size:11px">Clear</button>` : `<b>${STANDARDS.length}</b> standards · <b>${CASES.length}</b> cases`;
+}
+function renderCases() {
+  const W = 380, H = 88, avg = a => a.reduce((x, y) => x + y, 0) / a.length;
+  $("#cases").innerHTML = CASES.map(c => {
+    const p = PROBLEMS.find(x => x.id === c.problem), stage = STAGES.find(s => s.id === p.stage);
+    const open = c.status === "open", s = c.series, sx = (c.shipDay / 119) * W;
+    const change = Math.round((avg(s.slice(-14)) / avg(s.slice(c.shipDay - 14, c.shipDay)) - 1) * 100);
+    const dim = state.std && !c.standards.includes(state.std);
+    return `<article class="case ${open ? "is-open" : ""} ${dim ? "dim" : ""}" id="case-${c.id}" data-case="${c.id}">
+      <div class="case-top">
+        <div>
+          <span class="eyebrow">Case ${String(c.n).padStart(2, "0")} · ${stage.n} · ${stage.name} · ${c.agency} · ${c.measure}</span>
+          <h3>${c.title}<span class="status ${c.status}">${open ? "OPEN · NO FIX YET" : "IN PILOT · SINCE " + c.shipped.toUpperCase()}</span></h3>
+          <p>${c.what}</p>
+          <ul class="facts">${c.facts.map(f => `<li>${f}</li>`).join("")}</ul>
+          <div class="src">Documented in ${link(c.source)}</div>
+          <div class="applied"><span class="lbl">${open ? "Standards proposed" : "Standards applied"}</span>${c.standards.map(id => {
+            const st = STANDARDS.find(x => x.id === id);
+            return `<button class="chip" data-std="${id}" aria-pressed="${state.std === id}" title="${st.name}">${st.short}</button>`; }).join("")}</div>
+        </div>
+        <div class="impact">
+          <div class="delta">
+            <div class="big">${open ? `${p.harm}<small>Harm Score · still rising</small>` : `<span class="was">${c.harmBefore}</span>${c.harmAfter}<small>Harm Score in pilot neighborhoods</small>`}</div>
+            <div class="big">${change >= 0 ? "▲" : "▼"} ${Math.abs(change)}%<small>posts a day, against the two weeks before ${open ? "the brief" : "the fix"}</small></div>
+          </div>
+          <div class="ichart">
+            <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="Posts per day over 120 days, ${change >= 0 ? "up" : "down"} ${Math.abs(change)} percent since ${open ? "the brief was sent" : "the fix shipped"}">
+              <path d="${sparkPath(s, W, H, 4)} L${W} ${H} L0 ${H} Z" fill="var(--heat-0)" opacity=".7"/>
+              <path d="${sparkPath(s, W, H, 4)}" fill="none" stroke="var(--heat-6)" stroke-width="2.5"/>
+              <line x1="${sx}" x2="${sx}" y1="0" y2="${H}" stroke="var(--nys-color-ink)" stroke-width="1.5" stroke-dasharray="3 3"/>
+            </svg>
+            <div class="axis"><span>120 days ago</span><span class="mark">┊ ${open ? "Brief sent" : "Shipped"} · ${c.shipped}</span><span>Today</span></div>
+          </div>
+        </div>
+        <div class="hoods">
+          <div class="hd"><span>Neighborhood risk profile</span><span>${open ? "Then → now" : "Before → after"}</span></div>
+          ${c.hoods.map(([nm, b, a]) => { const d = a - b; return `<div class="hood"><span class="nm" title="${nm}">${nm}</span>
+            <div class="track" role="img" aria-label="${nm}: risk ${b} before, ${a} after"><span class="was" style="width:${b}%"></span><span class="now" style="width:${a}%;background:var(--heat-${riskLvl(a)})"></span></div>
+            <span class="d ${d < 0 ? "down" : "up"}">${d < 0 ? "▼" : "▲"} ${Math.abs(d)}</span></div>`; }).join("")}
+          <span class="foot">${open ? "No pilot yet. We track risk so a drop shows the week a fix ships." : `Pilot districts only. Citywide, “${p.title}” is still on the Radar at Harm ${p.harm}.`}</span>
+        </div>
+      </div>
+      <div class="case-vids">
+        <div class="lbl"><b>${open ? "People waiting on a fix" : "Success stories"}</b><span>${c.videos.length} public videos · select one to play</span></div>
+        ${c.videos.map((v, i) => `<button class="card wide" data-case-play="${c.id}:${i}" aria-label="Play: ${v[2]}">
+          <div class="vid yt" style="background:var(--heat-5) url(https://i.ytimg.com/vi/${v[5].yt}/hqdefault.jpg)"><span class="plat">${v[0]}</span><span class="real ${v[5].kind === "news" ? "news" : ""}">${v[5].kind === "news" ? "NEWS" : "REAL STORY"}</span><span class="play"></span><span class="desc">${v[2]}</span></div>
+          <span class="meta">${v[3]}</span></button>`).join("")}
+      </div>
+    </article>`;
+  }).join("");
+}
+
+/* ----------------------------------------------------------------- views */
+function showView(v) {
+  state.view = v;
+  document.querySelectorAll(".view").forEach(el => el.hidden = el.id !== "view-" + v);
+  document.querySelectorAll(".nav a[data-view]").forEach(a => {
+    const on = a.dataset.view === v; a.classList.toggle("on", on);
+    if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  });
+  $("#viewTitle").textContent = v === "impact" ? "Design impact" : "Radar";
+  $("#topRadar").hidden = v !== "radar"; $("#topImpact").hidden = v !== "impact";
+  document.title = `Hearts & Minds NYC · ${v === "impact" ? "Design impact" : "Radar"}`;
+  if (v === "radar") { sizeTiles(); updateArrows(); }
+}
+function route() {
+  const h = location.hash.replace("#", "");
+  if (h.startsWith("impact")) {
+    showView("impact");
+    const m = h.match(/^impact\/(.+)$/);
+    if (m) requestAnimationFrame(() => $("#case-" + m[1])?.scrollIntoView({ behavior: "smooth", block: "start" }));
+    else window.scrollTo(0, 0);
+  } else showView("radar");
+}
+window.addEventListener("hashchange", route);
+
 function select(id) {
   state.selected = id;
   document.querySelectorAll(".tile").forEach(t => t.setAttribute("aria-pressed", t.dataset.id === id));
@@ -619,11 +960,12 @@ function select(id) {
 }
 
 /* ---------------------------------------------------------------- player */
-let playIdx = 0, playTimer = null;
+let playIdx = 0, playTimer = null, playList = null, playTitle = "";
 function openPlayer(i) {
   const p = PROBLEMS.find(x => x.id === state.selected);
-  playIdx = (i + p.clips.length) % p.clips.length;
-  const c = p.clips[playIdx], v = c[5];
+  const list = playList || p.clips, title = playList ? playTitle : p.title;
+  playIdx = (i + list.length) % list.length;
+  const c = list[playIdx], v = c[5];
   const screen = $("#screen");
   screen.querySelector("iframe")?.remove();
   screen.classList.toggle("wide", !!(v && v.yt));
@@ -636,8 +978,8 @@ function openPlayer(i) {
     f.allow = "autoplay; encrypted-media; picture-in-picture"; f.allowFullscreen = true; f.title = c[3];
     screen.appendChild(f);
   }
-  $("#pEyebrow").textContent = `Clip ${playIdx + 1} of ${p.clips.length} · ${c[0]}`;
-  $("#pTitle").textContent = p.title;
+  $("#pEyebrow").textContent = `Clip ${playIdx + 1} of ${list.length} · ${c[0]}`;
+  $("#pTitle").textContent = title;
   $("#pMeta").textContent = v && v.yt
     ? `${c[3]}. ${v.desc ? c[2] : "“" + c[2] + "”"} Public video, shown with its original attribution.`
     : `${c[3]} · posted ${c[4]}. Sample clip. Faces are blurred and names removed before clips are shared with agencies.`;
@@ -648,7 +990,7 @@ function openPlayer(i) {
   clearTimeout(playTimer);
   if (!(v && v.yt)) playTimer = setTimeout(() => openPlayer(playIdx + 1), secs * 1000 + 400);
 }
-function closePlayer() { $("#player").classList.remove("open"); clearTimeout(playTimer); $("#screen iframe")?.remove(); }
+function closePlayer() { $("#player").classList.remove("open"); clearTimeout(playTimer); $("#screen iframe")?.remove(); playList = null; }
 
 /* ---------------------------------------------------------------- events */
 document.addEventListener("click", e => {
@@ -664,6 +1006,10 @@ document.addEventListener("click", e => {
   }
   const thumb = e.target.closest(".tile .thumb[data-idx]");
   if (thumb) { if (state.selected !== thumb.dataset.pid) select(thumb.dataset.pid); return openPlayer(+thumb.dataset.idx); }
+  const std = e.target.closest("[data-std]");
+  if (std) { state.std = state.std === std.dataset.std ? null : std.dataset.std; renderStds(); renderCases(); return; }
+  const cp = e.target.closest("[data-case-play]");
+  if (cp) { const [id, i] = cp.dataset.casePlay.split(":"); const c = CASES.find(x => x.id === id); playList = c.videos; playTitle = c.title; return openPlayer(+i); }
   const tile = e.target.closest(".tile"); if (tile) return select(tile.dataset.id);
   const play = e.target.closest("[data-play]"); if (play) return openPlayer(+play.dataset.play);
   const t = e.target.closest("[data-toast]"); if (t) return toast(t.dataset.toast);
@@ -730,6 +1076,8 @@ setInterval(() => {            // every ~25s a new clip lands on the selected pr
 
 /* ------------------------------------------------------------------ boot */
 renderFilters(); renderStages(); renderCols(); renderSelected(); renderFeed();
+renderPillars(); renderStats(); renderStds(); renderCases();
+route();
 if (document.fonts) document.fonts.ready.then(sizeTiles);
 </script>
 </body>
